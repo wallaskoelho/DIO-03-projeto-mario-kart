@@ -23,14 +23,17 @@ const player1 = {
     let result;
   
     switch (true) {
-      case random < 0.33:
+      case random < 0.3:
         result = "RETA";
         break;
-      case random < 0.66:
+      case random < 0.6:
         result = "CURVA";
         break;
+      case random < 8:
+        result = "CONFRONTO COM BOMBA";
+        break
       default:
-        result = "CONFRONTO";
+        result = "CONFRONTO COM BOMBA";
     }
   
     return result;
@@ -98,7 +101,7 @@ const player1 = {
         );
       }
   
-      if (block === "CONFRONTO") {
+      if (block === "CONFRONTO COM CASCO") {
         let powerResult1 = diceResult1 + character1.PODER;
         let powerResult2 = diceResult2 + character2.PODER;
   
@@ -123,6 +126,20 @@ const player1 = {
             `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 1 ponto 🐢`
           );
           character2.PONTOS--;
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character1.PONTOS = character1.PONTOS + aleatoryMais
+
+          console.log(`${character1.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+
         }
   
         if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
@@ -130,6 +147,171 @@ const player1 = {
             `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
           );
           character1.PONTOS--;
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character2.PONTOS = character2.PONTOS + aleatoryMais
+
+          console.log(`${character2.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+        }
+  
+        console.log(
+          powerResult2 === powerResult1
+            ? "Confronto empatado! Nenhum ponto foi perdido"
+            : ""
+        );
+      }
+
+      if (block === "CONFRONTO COM BOMBA") {
+        let powerResult1 = diceResult1 + character1.PODER;
+        let powerResult2 = diceResult2 + character2.PODER;
+  
+        console.log(`${character1.NOME} confrontou com ${character2.NOME}! 🥊`);
+  
+        await logRollResult(
+          character1.NOME,
+          "poder",
+          diceResult1,
+          character1.PODER
+        );
+  
+        await logRollResult(
+          character2.NOME,
+          "poder",
+          diceResult2,
+          character2.PODER
+        );
+  
+        if (powerResult1 > powerResult2 && character2.PONTOS > 1) {
+          console.log(
+            `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 2 ponto 🐢`
+          );
+          character2.PONTOS-=2;
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character1.PONTOS = character1.PONTOS + aleatoryMais
+
+          console.log(`${character1.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+          console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+          console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
+        }
+
+        if (powerResult1 > powerResult2 && character2.PONTOS > 0) {
+          console.log(
+            `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 1 ponto 🐢`
+          );
+          character2.PONTOS--;
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character1.PONTOS = character1.PONTOS + aleatoryMais
+
+          console.log(`${character1.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+          console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+          console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
+
+        }else if(powerResult1 > powerResult2){
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character1.PONTOS = character1.PONTOS + aleatoryMais
+
+          console.log(`${character1.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+          console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+          console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
+
+        }
+  
+  
+        if (powerResult2 > powerResult1 && character1.PONTOS > 1) {
+          console.log(
+            `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 2 ponto 🐢`
+          );
+          character1.PONTOS-=2;
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character2.PONTOS = character2.PONTOS + aleatoryMais
+
+          console.log(`${character2.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+          console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+          console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
+        }
+
+        if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
+          console.log(
+            `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
+          );
+          character1.PONTOS--;
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character2.PONTOS = character2.PONTOS + aleatoryMais
+
+          console.log(`${character2.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+          console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+          console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
+
+        }else if(powerResult2 > powerResult1){
+
+          let aleatory = Math.random();
+          let aleatoryMais;
+
+
+          if(aleatory < 0.5){
+              aleatoryMais = 0
+          }else{
+              aleatoryMais = 1
+          }
+          character2.PONTOS = character2.PONTOS + aleatoryMais
+
+          console.log(`${character2.NOME} Ganhou aleatoriamente:  ${aleatoryMais} Pontos`)
+          console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+          console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
+
         }
   
         console.log(
@@ -143,9 +325,13 @@ const player1 = {
       if (totalTestSkill1 > totalTestSkill2) {
         console.log(`${character1.NOME} marcou um ponto!`);
         character1.PONTOS++;
+        console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+        console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
       } else if (totalTestSkill2 > totalTestSkill1) {
         console.log(`${character2.NOME} marcou um ponto!`);
         character2.PONTOS++;
+        console.log(`${character1.NOME} Com:  ${character1.PONTOS} Pontos`)
+        console.log(`${character2.NOME} Com:  ${character2.PONTOS} Pontos`)
       }
   
       console.log("-----------------------------");
